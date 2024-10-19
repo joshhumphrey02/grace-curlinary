@@ -29,7 +29,8 @@ export default function ClientFooter() {
 						<ul className=" flex gap-6">
 							{NavData.slice(1).map((item) => (
 								<Link
-									href={item.link + item.name}
+									key={item.link + item.name}
+									href={item.link}
 									className="text-sm sm:text-base relative py-2 group font-medium">
 									<li className="">
 										<div className="absolute bottom-2 rounded left-0 h-1 w-0 bg-tertiary transition-all  duration-1000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
