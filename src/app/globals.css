@@ -44,11 +44,11 @@
 	}
 
 	.dark {
-		--background: 222.2 84% 4.9%;
+		--background: 222.2 84% 0.9%;
 		--foreground: 210 40% 98%;
-		--card: 222.2 84% 4.9%;
+		--card: 222.2 84% 8.9%;
 		--card-foreground: 210 40% 98%;
-		--popover: 222.2 84% 4.9%;
+		--popover: 222.2 84% 8.9%;
 		--popover-foreground: 210 40% 98%;
 		--primary: 217.2 91.2% 59.8%;
 		--primary-foreground: 222.2 47.4% 11.2%;
@@ -103,7 +103,7 @@
 	background-size: 200% auto;
 	background-position: 0 50%;
 	/* background-image: linear-gradient(90deg, blue, pink, #ff00ff); */
-	animation: backgroudFlow 5s ease-in-out infinite;
+	animation: backgroudFlow 10s ease-in-out infinite;
 	animation-direction: alternate;
 }
 

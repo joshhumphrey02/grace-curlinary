@@ -33,8 +33,8 @@ export default function ClientFooter() {
 									href={item.link}
 									className="text-sm sm:text-base relative py-2 group font-medium">
 									<li className="">
-										<div className="absolute bottom-2 rounded left-0 h-1 w-0 bg-tertiary transition-all  duration-1000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
-										<div className="relative border-b-2 border-tertiary pb-1 group-hover:border-0 transition-all  duration-1000 z-10 flex items-center gap-2 leading-12">
+										<div className="absolute bottom-2 rounded left-0 h-1 w-0 bg-border transition-all  duration-1000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
+										<div className="relative border-b-2 border-border pb-1 group-hover:border-0 transition-all  duration-1000 z-10 flex items-center gap-2 leading-12">
 											{item.name}
 										</div>
 									</li>

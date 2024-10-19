@@ -4,6 +4,8 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import ClientNav from './nav';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/theme/toggle';
+import { ShoppingCart } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export default function ClientHeader() {
 	return (
@@ -25,6 +27,12 @@ export default function ClientHeader() {
 				</div>
 				<div className="flex items-center gap-4">
 					<ModeToggle />
+					<div className="relative">
+						<div className=" absolute -top-3 -right-3 text-sm font-medium text-white bg-tertiary w-fit h-fit rounded-full px-1 py-px">
+							8
+						</div>
+						<ShoppingCart strokeWidth={3} className="w-6 h-6 relative" />
+					</div>
 					<Button
 						className="border-tertiary hidden sm:flex group relative h-9 px-6 font-sans font-medium"
 						variant="outline">

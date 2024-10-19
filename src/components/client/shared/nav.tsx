@@ -13,15 +13,18 @@ import {
 } from '@/components/ui/sheet';
 import {
 	AlignRight,
+	Dot,
 	HomeIcon,
 	NotebookPen,
 	PanelLeftClose,
 	PhoneOutgoing,
 	ShoppingCart,
+	User2,
 	Utensils,
 } from 'lucide-react';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import SearchForm from './search';
+import { cn } from '@/lib/utils';
 
 export default function ClientNav() {
 	return (
@@ -31,11 +34,11 @@ export default function ClientNav() {
 					{NavData.map((item, index) => (
 						<li key={index + item.name}>
 							<Link
-								href={item.link}
+								href={'#'}
 								className="text-sm sm:text-base relative py-2 group font-medium">
 								<div className="absolute -bottom-2 rounded left-0 h-1.5 w-0 bg-tertiary transition-all delay-75 duration-1000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
 								<div className="relative z-10 flex items-center gap-2 leading-12">
-									<item.icon className="w-5 h-5 text-tertiary-foreground" />{' '}
+									{/* <item.icon className="w-5 h-5 text-tertiary-foreground" />{' '} */}
 									{item.name}
 								</div>
 							</Link>
@@ -43,7 +46,7 @@ export default function ClientNav() {
 					))}
 				</ul>
 			</nav>
-			<Sheet>
+			{/* <Sheet>
 				<SheetTrigger className=" sm:hidden" asChild>
 					<div>
 						<AlignRight className="w-7 h-7 text-tertiary" />
@@ -80,7 +83,7 @@ export default function ClientNav() {
 											className="text-sm sm:text-base relative group font-medium">
 											<div className="absolute -bottom-4 rounded left-0 h-px w-full bg-border"></div>
 											<div className="relative z-10 flex items-center gap-2 leading-12">
-												<item.icon className="w-5 h-5 text-tertiary" />{' '}
+												<item.icon className="w-5 h-5 text-foreground" />{' '}
 												{item.name}
 											</div>
 										</Link>
@@ -97,7 +100,7 @@ export default function ClientNav() {
 						</SheetClose>
 					</SheetFooter>
 				</SheetContent>
-			</Sheet>
+			</Sheet> */}
 		</>
 	);
 }
@@ -105,14 +108,23 @@ export default function ClientNav() {
 export function MobileNav() {
 	const active = '/';
 	return (
-		<div className=" fixed bottom-0 z-[100] shadow left-0 right-0 flex sm:hidden w-full h-16">
-			<nav className="flex-1 bg-background border-t border-border rounded-t-2xl px-4 py-2 flex">
-				<ul className="flex flex-1 gap-6 items-center justify-between">
-					{NavData.map((item, index) => (
+		<div className=" fixed bottom-0 z-[100] shadow left-0 right-0 flex sm:hidden w-full h-[5rem]">
+			<nav className="flex-1 bg-background border-t border-border rounded-t-2xl px-8 py-2 flex">
+				<ul className="flex flex-1 gap-8 items-center justify-evenly">
+					{MobileNavData.map((item, index) => (
 						<li key={index + item.name}>
-							<Link href={item.link} className="py-2">
-								<div className=" flex items-center gap-2 ">
-									<item.icon className="w-6 h-6 text-tertiary-foreground" />
+							<Link href={'#'} className="py-2">
+								<div className=" flex flex-col items-center gap-0 ">
+									<item.icon
+										strokeWidth={3}
+										className={cn(
+											'w-6 h-6 text-foreground',
+											index === 0 && 'text-primary'
+										)}
+									/>
+									{active === item.link && (
+										<Dot strokeWidth={5} className=" text-primary" />
+									)}
 								</div>
 							</Link>
 						</li>
@@ -148,5 +160,27 @@ export const NavData = [
 		name: 'Cart',
 		link: '/cart',
 		icon: ShoppingCart,
+	},
+];
+export const MobileNavData = [
+	{
+		name: 'Home',
+		link: '/',
+		icon: HomeIcon,
+	},
+	{
+		name: 'Meals',
+		link: '/meals',
+		icon: Utensils,
+	},
+	{
+		name: 'Booking',
+		link: '/booking',
+		icon: NotebookPen,
+	},
+	{
+		name: 'Profile',
+		link: '/profile',
+		icon: User2,
 	},
 ];

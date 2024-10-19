@@ -1,6 +1,5 @@
 import ClientFooter from '@/components/client/shared/footer';
 import ClientHeader from '@/components/client/shared/header';
-import { MobileNav } from '@/components/client/shared/nav';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -13,7 +12,6 @@ export default function HomeLayout({ children }: Props) {
 			<ClientHeader />
 			<main>{children}</main>
 			<ClientFooter />
-			<MobileNav />
 		</div>
 	);
 }
