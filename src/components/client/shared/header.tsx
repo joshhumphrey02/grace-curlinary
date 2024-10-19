@@ -16,9 +16,9 @@ export default function ClientHeader() {
 					<Avatar className="h-12 w-12 hidden dark:block">
 						<AvatarImage src={Logo2.src} />
 					</Avatar>
-					<h2 className="text-xl hidden sm:flex gap-1 font-bold font-sans">
-						<span className="text-primary">Grace Peters</span> Curlinary
-					</h2>
+					<h1 className="self-center text-lg sm:text-xl font-semibold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-500 to-[#ff00ff]">
+						Grace Curlinary
+					</h1>
 				</div>
 				<div className="hidden sm:flex">
 					<ClientNav />

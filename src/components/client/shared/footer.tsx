@@ -2,13 +2,17 @@ import Link from 'next/link';
 import Logo from '@/assets/logo-black.png';
 import Logo2 from '@/assets/logo-black 2.png';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
+import { Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { NavData } from './nav';
 
 export default function ClientFooter() {
 	return (
-		<footer className="p-4 bg-white sm:p-8 dark:bg-gray-800">
-			<div className="mx-auto max-w-screen-xl">
-				<div className="md:flex md:justify-between">
-					<div className="mb-6 md:mb-0">
+		<footer className="p-4 bg-card sm:px-16 sm:py-8 ">
+			<div className="">
+				<div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 sm:gap-1">
+					<div className="">
 						<Link href="/" className="flex items-center gap-2">
 							<Avatar className="h-12 w-12 dark:hidden">
 								<AvatarImage src={Logo.src} />
@@ -16,51 +20,50 @@ export default function ClientFooter() {
 							<Avatar className="h-12 w-12 hidden dark:block">
 								<AvatarImage src={Logo2.src} />
 							</Avatar>
-							<span className="self-center text-xl sm:text-2xl font-semibold whitespace-nowrap dark:text-white">
-								<span className="text-primary">Grace Peters</span> Curlinary
-							</span>
+							<h1 className="self-center text-lg sm:text-xl font-semibold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-500 to-[#ff00ff]">
+								Grace Curlinary
+							</h1>
 						</Link>
 					</div>
-					<div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-						<div>
-							<h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-								Resources
-							</h2>
-							<ul className="text-gray-600 dark:text-gray-400">
-								<li className="mb-4">
-									<Link href="/" className="hover:underline">
-										Grace peters curlinary
-									</Link>
-								</li>
-								<li>
-									<Link href="#" className="hover:underline">
-										Meals
-									</Link>
-								</li>
-							</ul>
-						</div>
-						<div>
-							<h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-								Follow us
-							</h2>
-							<ul className="text-gray-600 dark:text-gray-400">
-								<li className="mb-4">
-									<Link href="#" className="hover:underline ">
-										Github
-									</Link>
-								</li>
-								<li>
-									<Link href="#" className="hover:underline">
-										Discord
-									</Link>
-								</li>
-							</ul>
-						</div>
+					<div className="flex justify-center">
+						<ul className=" flex gap-6">
+							{NavData.slice(1).map((item) => (
+								<Link
+									href={item.link + item.name}
+									className="text-sm sm:text-base relative py-2 group font-medium">
+									<li className="">
+										<div className="absolute bottom-2 rounded left-0 h-1 w-0 bg-tertiary transition-all  duration-1000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
+										<div className="relative border-b-2 border-tertiary pb-1 group-hover:border-0 transition-all  duration-1000 z-10 flex items-center gap-2 leading-12">
+											{item.name}
+										</div>
+									</li>
+								</Link>
+							))}
+						</ul>
+					</div>
+					<div>
+						<form
+							action=""
+							className="rounded-xl broder-border h-12 items-center gap-2 border flex">
+							<div className="flex gap-2 flex-1 items-center px-3">
+								<Mail />
+								<Input
+									type="email"
+									placeholder="Your email"
+									className="bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:ring-transparent"
+								/>
+							</div>
+							<Button
+								variant="outline"
+								className="border-tertiary text-white h-full py-0 rounded-l-none rounded-r-xl bg-tertiary">
+								Subscribe
+							</Button>
+						</form>
 					</div>
 				</div>
-				<hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+				<hr className="my-6 border-border sm:mx-auto  lg:my-8" />
 				<div className="sm:flex sm:items-center sm:justify-between">
-					<span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+					<span className="text-sm  sm:text-center ">
 						© 2024{' '}
 						<Link href="/" className="hover:underline">
 							Grace peters curlinary

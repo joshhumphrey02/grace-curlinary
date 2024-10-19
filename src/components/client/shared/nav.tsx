@@ -105,8 +105,8 @@ export default function ClientNav() {
 export function MobileNav() {
 	const active = '/';
 	return (
-		<div className=" fixed -bottom-8 z-[100] shadow left-0 right-0 flex sm:hidden w-full h-16">
-			<nav className="flex-1 bg-card border-t border-border rounded-t-xl px-4 py-2 flex">
+		<div className=" fixed bottom-0 z-[100] shadow left-0 right-0 flex sm:hidden w-full h-16">
+			<nav className="flex-1 bg-background border-t border-border rounded-t-2xl px-4 py-2 flex">
 				<ul className="flex flex-1 gap-6 items-center justify-between">
 					{NavData.map((item, index) => (
 						<li key={index + item.name}>
@@ -130,8 +130,8 @@ export const NavData = [
 		icon: HomeIcon,
 	},
 	{
-		name: 'Menu',
-		link: '/menu',
+		name: 'Meals',
+		link: '/meals',
 		icon: Utensils,
 	},
 	{
