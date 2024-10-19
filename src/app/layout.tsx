@@ -1,0 +1,49 @@
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import { Toaster } from 'sonner';
+import { Roboto } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/theme/theme-provider';
+
+const geistSans = localFont({
+	src: '../assets/fonts/GeistVF.woff',
+	variable: '--font-geist-sans',
+	weight: '100 900',
+});
+const geistMono = localFont({
+	src: '../assets/fonts/GeistMonoVF.woff',
+	variable: '--font-geist-mono',
+	weight: '100 900',
+});
+const roboto = Roboto({
+	weight: '400',
+	subsets: ['latin'],
+	display: 'swap',
+	variable: '--font-roboto',
+});
+export const metadata: Metadata = {
+	title: 'Grace Peters Curlinary',
+	description: 'A pastry ecommerce webiste to satisy your taste budz',
+};
+
+export default function RootLayout({
+	children,
+}: Readonly<{
+	children: React.ReactNode;
+}>) {
+	return (
+		<html lang="en">
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} ${roboto.className} antialiased max-w-[1350px] mx-auto`}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange>
+					{children}
+				</ThemeProvider>
+				<Toaster />
+			</body>
+		</html>
+	);
+}
