@@ -9,7 +9,7 @@ export default function Home() {
 						style={{ backgroundImage: `url('${bgImage.src}')` }}
 						className="text-3xl self-start sm:text-[4rem] font-extrabold leading-[2.5rem] sm:leading-[5rem] flex flex-col gap-1 bg-clip-text text text-transparent">
 						<span className="">Satisfy Your</span>
-						<span className="ml-9">Taste Budz</span>
+						<span className="ml-4">Taste Budz</span>
 					</h1>
 				</div>
 			</div>
