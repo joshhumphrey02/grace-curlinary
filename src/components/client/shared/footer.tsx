@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Logo from '@/assets/logo-black.png';
 import Logo2 from '@/assets/logo-black 2.png';

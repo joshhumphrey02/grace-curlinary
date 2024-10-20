@@ -5,7 +5,6 @@ import ClientNav from './nav';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/theme/toggle';
 import { ShoppingCart } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 
 export default function ClientHeader() {
 	return (
@@ -26,24 +25,23 @@ export default function ClientHeader() {
 					<ClientNav />
 				</div>
 				<div className="flex items-center gap-4">
-					<ModeToggle />
-					<div className="relative">
-						<div className=" absolute -top-3 -right-3 text-sm font-medium text-white bg-tertiary w-fit h-fit rounded-full px-1 py-px">
+					<div className="bg-card p-1 shadow border border-border rounded-md">
+						<ModeToggle />
+					</div>
+					<div className="relative bg-card shadow p-3 border border-border rounded-md">
+						<div className=" absolute -top-2 -right-2 text-sm font-medium text-white bg-tertiary w-fit h-fit rounded-full px-1 py-px">
 							8
 						</div>
 						<ShoppingCart strokeWidth={3} className="w-6 h-6 relative" />
 					</div>
 					<Button
-						className="border-tertiary hidden sm:flex group relative h-9 px-6 font-sans font-medium"
+						className="border-tertiary hidden sm:flex group relative h-12 px-6 font-sans font-medium"
 						variant="outline">
 						<div className="absolute top-0 h-full rounded left-0 w-0 bg-tertiary transition-all duration-1000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
 						<div className="relative text-sm sm:text-base z-10 group-hover:text-white transition-all duration-1000 leading-12">
 							Sign in
 						</div>
 					</Button>
-					<div className="flex sm:hidden">
-						<ClientNav />
-					</div>
 				</div>
 			</div>
 		</header>

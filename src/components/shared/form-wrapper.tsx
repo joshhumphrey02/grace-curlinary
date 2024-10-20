@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/drawer';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface FormProps {
 	open: boolean;
@@ -48,7 +49,9 @@ export function FormWrapper(props: FormProps) {
 				onOpenChange={() => {
 					handleClose(formKey, formValue);
 				}}>
-				<DialogContent className="sm:max-w-[500px]">{children}</DialogContent>
+				<DialogContent className={cn('sm:max-w-[500px] p-0', className)}>
+					{children}
+				</DialogContent>
 			</Dialog>
 		);
 	}
