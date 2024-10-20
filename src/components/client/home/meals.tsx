@@ -35,12 +35,12 @@ export default function Meals(props: Props) {
 											alt="burger"
 										/>
 									</div>
-									<div className="px-3 pb-4 space-y-3">
-										<h5 className="text-base font-extrabold ">
+									<div className="px-3 pb-2 sm:pb-4 space-y-3">
+										<h5 className="text-sm sm:text-base font-extrabold ">
 											{i % 2 == 0 ? 'Fried Rice' : 'Spagetti'}
 										</h5>
 										<div className="flex justify-between items-center">
-											<span className="flex text-xl font-extrabold items-center">
+											<span className="flex text-base sm:text-xl font-extrabold items-center">
 												<FaNairaSign className="text-foreground" />{' '}
 												{i % 2 == 0 ? 2500 : 1200}
 											</span>

@@ -41,9 +41,9 @@ export default function ClientNav() {
 }
 
 export function MobileNav() {
-	const active = '/';
+	const pathname = usePathname();
 	return (
-		<div className=" fixed -bottom-px z-[100] shadow left-0 right-0 flex sm:hidden w-full h-[5rem]">
+		<div className=" fixed -bottom-1 z-[100] shadow left-0 right-0 flex sm:hidden w-full h-[5rem]">
 			<nav className="flex-1 bg-background border-t border-border rounded-t-3xl px-8 py-2 flex">
 				<ul className="flex flex-1 gap-8 items-center justify-evenly">
 					{MobileNavData.map((item, index) => (
@@ -57,7 +57,7 @@ export function MobileNav() {
 											index === 0 && 'text-primary'
 										)}
 									/>
-									{active === item.link && (
+									{pathname === item.link && (
 										<Dot strokeWidth={5} className=" text-primary" />
 									)}
 								</div>
