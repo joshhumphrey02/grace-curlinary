@@ -1,16 +1,15 @@
 'use client';
 import Link from 'next/link';
 import {
-	Dot,
+	Compass,
+	Heart,
 	HomeIcon,
 	NotebookPen,
 	PhoneOutgoing,
-	ShoppingCart,
-	User2,
-	Utensils,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import { FaUser } from 'react-icons/fa6';
 
 export default function ClientNav() {
 	const pathname = usePathname();
@@ -21,7 +20,7 @@ export default function ClientNav() {
 					{NavData.map((item, index) => (
 						<li key={index + item.name}>
 							<Link
-								href={'#'}
+								href={item.link}
 								className="text-sm sm:text-base relative py-2 group font-medium">
 								<div
 									className={cn(
@@ -43,23 +42,27 @@ export default function ClientNav() {
 export function MobileNav() {
 	const pathname = usePathname();
 	return (
-		<div className=" fixed -bottom-1 z-[100] shadow left-0 right-0 flex sm:hidden w-full h-[5rem]">
-			<nav className="flex-1 bg-background border-t border-border rounded-t-3xl px-8 py-2 flex">
+		<div className=" fixed -bottom-1 z-[100] shadow-md left-0 right-0 flex sm:hidden w-full h-[5rem]">
+			<nav className="flex-1 bg-background border-t border-border rounded-t-[2.4rem] px-8 py-2 flex">
 				<ul className="flex flex-1 gap-8 items-center justify-evenly">
 					{MobileNavData.map((item, index) => (
 						<li key={index + item.name}>
-							<Link href={'#'} className="py-2">
-								<div className=" flex flex-col items-center gap-0 ">
+							<Link href={item.link} className="py-2">
+								<div className=" flex flex-col items-center gap-px ">
 									<item.icon
 										strokeWidth={3}
 										className={cn(
-											'w-6 h-6 text-foreground',
-											index === 0 && 'text-primary'
+											'w-5 h-5 text-foreground',
+											pathname === item.link && 'text-primary'
 										)}
 									/>
-									{pathname === item.link && (
-										<Dot strokeWidth={5} className=" text-primary" />
-									)}
+									<span
+										className={cn(
+											'text-sm font-normal text-secondary-foreground',
+											pathname === item.link && 'text-primary'
+										)}>
+										{item.name}
+									</span>
 								</div>
 							</Link>
 						</li>
@@ -77,9 +80,9 @@ export const NavData = [
 		icon: HomeIcon,
 	},
 	{
-		name: 'Meals',
-		link: '/meals',
-		icon: Utensils,
+		name: 'Explore',
+		link: '/explore',
+		icon: Compass,
 	},
 	{
 		name: 'Booking',
@@ -91,11 +94,6 @@ export const NavData = [
 		link: '/contact',
 		icon: PhoneOutgoing,
 	},
-	{
-		name: 'Cart',
-		link: '/cart',
-		icon: ShoppingCart,
-	},
 ];
 export const MobileNavData = [
 	{
@@ -104,18 +102,18 @@ export const MobileNavData = [
 		icon: HomeIcon,
 	},
 	{
-		name: 'Meals',
-		link: '/meals',
-		icon: Utensils,
+		name: 'Explore',
+		link: '/explore',
+		icon: Compass,
 	},
 	{
-		name: 'Booking',
-		link: '/booking',
-		icon: NotebookPen,
+		name: 'Fav',
+		link: '/favorite',
+		icon: Heart,
 	},
 	{
 		name: 'Profile',
 		link: '/profile',
-		icon: User2,
+		icon: FaUser,
 	},
 ];

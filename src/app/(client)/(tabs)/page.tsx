@@ -1,6 +1,6 @@
 import Hero from '@/components/client/home/hero';
 import Categories from '@/components/client/home/categories';
-import Meals from '@/components/client/home/meals';
+import Meals from '@/components/client/shared/meals';
 import SearchForm from '@/components/shared/search-form';
 
 interface Props {

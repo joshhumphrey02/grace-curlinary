@@ -32,7 +32,7 @@ export default function Hero(props: Props) {
 					Discover fresh, delightful dishes that turn every meal into a
 					celebration!
 				</p>
-				<SearchTrigger className=" sm:hidden rounded-full p-4 bg-card shadow text-primary h-fit w-fit" />
+				<SearchTrigger className=" sm:hidden rounded-full p-3 bg-card shadow text-primary h-fit w-fit" />
 				<SearchTrigger className=" mt-4 hidden sm:flex flex-row-reverse rounded-[2rem] shadow-md  py-1" />
 			</div>
 			<div className=" h-full w-full overflow-hidden rounded-xl ">
