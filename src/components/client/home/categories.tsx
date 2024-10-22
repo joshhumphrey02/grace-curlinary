@@ -27,7 +27,7 @@ export default function Categories(props: Props) {
 					{data.map((c, i) => (
 						<Link key={uniqueId()} href={`/p/${c.name}`}>
 							<Card className="p-1 space-y-4 outline-tertiary transition-all duration-1000 hover:outline rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl">
-								<div className="w-full h-16 sm:h-32 rounded-xl overflow-hidden">
+								<div className="w-full h-16 sm:h-40 rounded-xl overflow-hidden">
 									<img
 										src={c.img}
 										className="w-full h-full object-cover"

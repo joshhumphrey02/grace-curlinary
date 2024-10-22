@@ -3,11 +3,11 @@ import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
 } from '@/components/ui/carousel';
 import { cn, uniqueId } from '@/lib/utils';
 import { Dot } from 'lucide-react';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 export default function ProductImage() {
 	const images = [
@@ -21,9 +21,11 @@ export default function ProductImage() {
 	return (
 		<div className="w-full h-full flex flex-col gap-4">
 			<div className="w-full h-full">
-				<div className="w-full bg-gray-300 rounded-md overflow-hidden hidden sm:flex h-96">
-					<img src={imageD} className="w-full h-full object-cover" alt="" />
-				</div>
+				<Zoom zoomMargin={50} canSwipeToUnzoom >
+					<div className="w-full bg-gray-300 rounded-md overflow-hidden hidden sm:flex h-96">
+						<img src={imageD} className="w-full h-full object-cover" alt="" />
+					</div>
+				</Zoom>
 				<div className="w-full h-full space-y-2 pt-3 sm:hidden">
 					<Carousel
 						setApi={(api) => {
