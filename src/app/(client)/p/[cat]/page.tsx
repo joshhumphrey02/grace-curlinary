@@ -59,7 +59,7 @@ export default function Explore({ searchParams, params }: Props) {
 									<h3 className="text-2xl mb-2 sm:border-b-2 sm:border-tertiary sm:text-3xl flex flex-col sm:flex-row sm:gap-1 text-white leading-[2rem] font-extrabold">
 										<span className=" ">Trending</span>
 										<span className="border-b-2 border-tertiary sm:border-0">
-											Teasty Meals
+											Tasty Meals
 										</span>
 									</h3>
 									<span className="text-sm sm:text-base text-bold text-white/90">

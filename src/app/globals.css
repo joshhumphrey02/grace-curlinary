@@ -89,7 +89,7 @@
 	::-webkit-scrollbar-thumb {
 		@apply bg-card rounded-xl;
 	}
-	::-webkit-scrollbar-thumb:hover {
+	::-webkit-scrollbar-thumb {
 		@apply bg-card/90;
 	}
 }
@@ -115,22 +115,26 @@
 		background-position: 100% 50%;
 	}
 }
-.custom-zoom [data-rmiz-modal-overlay],
-.custom-zoom [data-rmiz-modal-img] {
-	transition-duration: 0.8s;
-	transition-timing-function: linear;
-}
-.custom-zoom [data-rmiz-modal-overlay='hidden'] {
-	background-color: hsl(var(--background));
-}
-.custom-zoom [data-rmiz-modal-overlay='visible'] {
-	background-color: rgb(56, 58, 89, 1);
-}
-.custom-zoom [data-rmiz-btn-unzoom] {
-	background-color: #bd93f9;
-	color: #000;
-}
-.custom-zoom [data-rmiz-btn-unzoom]:focus-visible {
-	outline-offset: 0.4rem;
-	outline: 0.2rem solid #bd93f9;
+
+@layer components {
+	.bg-animate {
+		overflow: hidden;
+	}
+
+	.bg-animate::before {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: var(--tw-bg-opacity, 1);
+		transition: top 2s ease;
+		background-color: hsl(var(--tertiary)); /* Primary color */
+		z-index: 0;
+	}
+
+	.animate::before {
+		top: 0;
+	}
 }

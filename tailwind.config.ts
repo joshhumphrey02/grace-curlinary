@@ -86,7 +86,8 @@ const config: Config = {
 			},
 			fontFamily: {
 				mono: ['var(--font-geist-mono)'],
-				roboto: ['var(--font-roboto-mono)'],
+				roboto: ['var(--font-roboto)'],
+				poppins: ['var(--font-poppins)'],
 				sans: ['var(--font-geist-sans)'],
 			},
 			animation: {

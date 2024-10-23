@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { Heart, Minus, Plus } from 'lucide-react';
 import React from 'react';
 import { FaNairaSign } from 'react-icons/fa6';
+import AnimatedButton from '../shared/animated-button';
 
 export default function ProductDetails() {
 	const [qty, setQty] = React.useState(1);
@@ -51,8 +52,8 @@ export default function ProductDetails() {
 				</div>
 			</div>
 			<Separator className=" hidden sm:flex" />
-			<div className=" hidden sm:flex flex-col gap-10">
-				<div className="flex gap-4">
+			<div className=" flex-col gap-10">
+				<div className=" gap-4  hidden sm:flex">
 					<div className="bg-gray-300 text-black font-bold px-4 py-2 gap-4 rounded-[1.3rem] flex items-center">
 						<span
 							className={qty <= 1 ? 'text-gray-600' : ''}
@@ -75,42 +76,10 @@ export default function ProductDetails() {
 						<span className="text-xs font-semibold">Don't miss it</span>
 					</div>
 				</div>
-				<div className="flex gap-4">
-					<Button
-						className="border-tertiary flex rounded-[1.8rem] px-12 overflow-hidden z-20 group relative font-sans font-medium"
-						variant="outline">
-						<div className="absolute top-0 h-full rounded-[1.8rem] left-0 w-0 bg-tertiary transition-all duration-2000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
-						<div className="relative text-sm z-10 group-hover:text-white transition-all duration-2000 leading-12">
-							Buy Now
-						</div>
-					</Button>
-					<Button
-						className="border-primary flex rounded-[1.8rem] px-12 overflow-hidden z-20 group relative font-sans font-medium"
-						variant="outline">
-						<div className="absolute top-0 h-full rounded-[1.8rem]  left-0 w-0 bg-primary transition-all duration-2000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
-						<div className="relative text-sm z-10 group-hover:text-white transition-all duration-2000 leading-12">
-							Add to Cart
-						</div>
-					</Button>
+				<div className="grid grid-cols-2 gap-4 sm:relative fixed w-full left-0 right-0 -bottom-1 sm:bottom-0 bg-background sm:bg-transparent rounded-t-2xl sm:rounded-none sm:p-0 py-5 px-4">
+					<AnimatedButton title="Buy Now" />
+					<AnimatedButton theme="blue" title="Buy Now" />
 				</div>
-			</div>
-			<div className="flex gap-4 sm:hidden fixed w-full left-0 right-0 -bottom-1 bg-background rounded-t-2xl py-5 px-4">
-				<Button
-					className="border-tertiary flex rounded-[1.8rem] px-12 overflow-hidden z-20 group relative font-sans font-medium"
-					variant="outline">
-					<div className="absolute top-0 h-full rounded-[1.8rem] left-0 w-0 bg-tertiary transition-all duration-2000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
-					<div className="relative text-sm z-10 group-hover:text-white transition-all duration-2000 leading-12">
-						Buy Now
-					</div>
-				</Button>
-				<Button
-					className="border-primary flex rounded-[1.8rem] px-12 overflow-hidden z-20 group relative font-sans font-medium"
-					variant="outline">
-					<div className="absolute top-0 h-full rounded-[1.8rem]  left-0 w-0 bg-primary transition-all duration-2000 ease-out group-hover:w-full group-hover:translate-x-0"></div>
-					<div className="relative text-sm z-10 group-hover:text-white transition-all duration-2000 leading-12">
-						Add to Cart
-					</div>
-				</Button>
 			</div>
 		</div>
 	);

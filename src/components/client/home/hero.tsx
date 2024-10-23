@@ -27,7 +27,7 @@ export default function Hero(props: Props) {
 						Budz
 					</span>
 				</h1>
-				<p className="text-xs hidden sm:flex font-mono leading-[2rem] pr-16 font-normal">
+				<p className="text-xs hidden sm:flex font-poppins leading-[2rem] pr-16 font-normal">
 					Savor the taste of unforgettable flavors crafted to perfection.
 					Discover fresh, delightful dishes that turn every meal into a
 					celebration!
@@ -42,7 +42,7 @@ export default function Hero(props: Props) {
 					<div className="flex flex-col">
 						<h3 className="text-2xl mb-2 sm:text-3xl flex flex-col text-white leading-[2rem] font-extrabold">
 							<span className=" ">Trending</span>
-							<span className="border-b-2 border-tertiary">Teasty Meals</span>
+							<span className="border-b-2 border-tertiary">Tasty Meals</span>
 						</h3>
 						<span className="text-sm sm:text-base text-bold text-white/90">
 							Discount up to 30% <br /> on first order

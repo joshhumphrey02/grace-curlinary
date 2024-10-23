@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Toaster } from 'sonner';
-import { Roboto } from 'next/font/google';
+import { Roboto, Poppins } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider';
 
@@ -16,10 +16,16 @@ const geistMono = localFont({
 	weight: '100 900',
 });
 const roboto = Roboto({
-	weight: '400',
+	weight: ['300', '400', '500', '700', '900'],
 	subsets: ['latin'],
 	display: 'swap',
 	variable: '--font-roboto',
+});
+const poppins = Poppins({
+	weight: ['300', '400', '500', '700', '900'],
+	subsets: ['latin'],
+	display: 'swap',
+	variable: '--font-poppins',
 });
 export const metadata: Metadata = {
 	title: 'Grace Peters Curlinary',
@@ -34,7 +40,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} ${roboto.className} antialiased max-w-[1350px] mx-auto`}>
+				className={`${geistSans.variable} ${poppins.variable} ${geistMono.variable} ${roboto.className} antialiased max-w-[1350px] font-sans mx-auto`}>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"

@@ -28,7 +28,7 @@ export default function Meals(props: Props) {
 						.fill('')
 						.map((c, i) => (
 							<Link key={uniqueId()} href={`/p/cat/123`}>
-								<Card className="p-2 space-y-3 shadow-lg rounded-xl transform transition duration-1000 hover:scale-105 hover:shadow-2xl">
+								<Card className="p-2 space-y-3 shadow-lg group rounded-xl transform transition duration-1000 hover:scale-105 hover:shadow-2xl">
 									<div className="w-full h-28 sm:h-40 bg-gray-200 rounded-xl overflow-hidden">
 										<img
 											src={i % 2 == 0 ? '/fried-rice.jpeg' : '/spag.jpeg'}
@@ -55,8 +55,8 @@ export default function Meals(props: Props) {
 												<FaNairaSign className="text-foreground" />{' '}
 												{i % 2 == 0 ? 2500 : 1200}
 											</span>
-											<span className="text-white bg-primary p-2 rounded-tl-xl rounded-br-xl">
-												<Heart className="w-4 h-4" />
+											<span className="relative text-white bg-primary bg-animate group-hover:animate p-2 rounded-tl-xl rounded-br-xl">
+												<Heart className="w-4 h-4 relative z-10" />
 											</span>
 										</div>
 									</div>
