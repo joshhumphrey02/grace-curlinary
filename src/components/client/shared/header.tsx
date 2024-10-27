@@ -1,5 +1,5 @@
-import Logo from '@/assets/logo-black.png';
-import Logo2 from '@/assets/logo-black 2.png';
+import LogoBlack from '@/assets/logo-black.png';
+import Logo from '@/assets/logo-white.png';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import ClientNav from './nav';
 import { Button } from '@/components/ui/button';
@@ -14,14 +14,11 @@ interface Props {
 
 export default function ClientHeader({ disableSearch = true }: Props) {
 	return (
-		<header className=" py-4 border-b border-border shadow-md">
+		<header className=" pt-4 pb-2 border-b border-border shadow-md">
 			<div className="px-4 sm:px-16 flex items-center justify-between">
 				<Link href={'/'} className="flex items-center gap-2">
-					<Avatar className="h-12 w-12 dark:hidden">
-						<AvatarImage src={Logo.src} />
-					</Avatar>
-					<Avatar className="h-12 w-12 hidden dark:block">
-						<AvatarImage src={Logo2.src} />
+					<Avatar className="h-11 w-10 pt-1">
+						<AvatarImage src={Logo.src} className=" object-cover" />
 					</Avatar>
 					<h1 className="self-center text-lg sm:text-xl font-semibold whitespace-nowrap text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-500 to-[#ff00ff]">
 						Grace Curlinary

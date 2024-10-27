@@ -59,7 +59,8 @@ export default function AnimatedButton(
 					props.textClassName
 				)}>
 				{loading && <Loader className="w-4 h-5" />}
-				{icon ? icon : title}
+				{icon && icon}
+				{title && title}
 				{children && <span>{children}</span>}
 			</div>
 		</Button>

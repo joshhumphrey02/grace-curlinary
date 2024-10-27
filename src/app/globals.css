@@ -117,10 +117,6 @@
 }
 
 @layer components {
-	.bg-animate {
-		overflow: hidden;
-	}
-
 	.bg-animate::before {
 		content: '';
 		position: absolute;

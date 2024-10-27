@@ -55,7 +55,7 @@ export default function Meals(props: Props) {
 												<FaNairaSign className="text-foreground" />{' '}
 												{i % 2 == 0 ? 2500 : 1200}
 											</span>
-											<span className="relative text-white bg-primary bg-animate group-hover:animate p-2 rounded-tl-xl rounded-br-xl">
+											<span className="relative text-white bg-primary bg-animate group-hover:animate p-2 rounded-tl-xl overflow-hidden rounded-br-xl">
 												<Heart className="w-4 h-4 relative z-10" />
 											</span>
 										</div>

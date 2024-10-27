@@ -10,10 +10,8 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { LogOutIcon } from 'lucide-react';
-import { toast } from 'sonner';
+import AnimatedButton from '../client/shared/animated-button';
+import { ExitIcon } from '@radix-ui/react-icons';
 interface Props {
 	className?: string;
 }
@@ -21,18 +19,14 @@ interface Props {
 export default function Logout({ className }: Props) {
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger asChild>
-				<Button
-					variant={'link'}
-					type="submit"
-					size={'sm'}
-					className={cn(
-						'px-6 py-2  text-gray-500  flex justify-start border border-red-500 rounded-lg',
-						className
-					)}>
-					<LogOutIcon className="h-4 w-4 mr-2 text-gray-500" />
-					Logout
-				</Button>
+			<AlertDialogTrigger>
+				<AnimatedButton
+					overlay={false}
+					title="Logout"
+					icon={<ExitIcon className="w-5 h-5" />}
+					textClassName="flex text-sm items-center gap-2 justify-start"
+					className=" w-full rounded-md border-none justify-start pl-0 bg-transparent h-12 hover:bg-transparent text-tertiary "
+				/>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
