@@ -1,0 +1,20 @@
+model Booking {
+  id        String        @id @default(uuid())
+  uid       Int           @default(autoincrement())
+  user      User          @relation(fields: [userId], references: [id], onDelete: NoAction)
+  userId    String
+  items     BookedItem[]
+  date      DateTime
+  status    BookingStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model BookedItem {
+  id        String  @id @default(uuid())
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  bookingId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: NoAction)
+  productId String
+  quantity  Int
+}

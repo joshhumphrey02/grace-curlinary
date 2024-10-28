@@ -1,5 +1,4 @@
 import ProductCard from '@/components/client/cart/product-card';
-import { uniqueId } from '@/lib/utils';
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -12,12 +11,13 @@ import Summary, { CheckAll } from '@/components/client/cart/summary';
 import SearchForm from '@/components/shared/search-form';
 
 interface Props {
-	searchParams: {
+	searchParams: Promise<{
 		search?: string;
-	};
+	}>;
 }
 
-export default function Cart({ searchParams }: Props) {
+export default async function Cart(props: Props) {
+	const searchParams = await props.searchParams;
 	return (
 		<div className="px-4 sm:px-16 pt-4 pb-10 space-y-6">
 			<Breadcrumb className="">
@@ -40,7 +40,7 @@ export default function Cart({ searchParams }: Props) {
 					{Array(5)
 						.fill(null)
 						.map((_, index) => (
-							<ProductCard key={uniqueId()} />
+							<ProductCard key={index} />
 						))}
 				</div>
 				<Summary />

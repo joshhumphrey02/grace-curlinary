@@ -1,0 +1,36 @@
+model Payment {
+  id          String        @id @default(uuid())
+  uid         Int           @default(autoincrement())
+  order       Order         @relation(fields: [orderId], references: [id])
+  orderId     String        @unique
+  status      PaymentStatus @default(OPEN)
+  currency    String        @default("NGN")
+  amount      Float
+  type        PaymentMethod @default(BANK_TRANSFER)
+  title       String
+  description String?
+  closedAt    DateTime?
+  paymentDate DateTime
+  createdAt   DateTime      @default(now())
+
+  // relations
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id          String            @id @default(uuid())
+  uid         Int               @default(autoincrement())
+  order       Order             @relation(fields: [orderId], references: [id])
+  orderId     String            @unique
+  amount      Float
+  status      TransactionStatus @default(PENDING)
+  shippingFee Float
+  comment     String?
+  note        String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  currency    String            @default("NGN")
+  paymentId   String?
+  payment     Payment?          @relation(fields: [paymentId], references: [id])
+}

@@ -38,7 +38,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${poppins.variable} ${geistMono.variable} ${roboto.className} antialiased max-w-[1350px] font-sans mx-auto`}>
 				<ThemeProvider

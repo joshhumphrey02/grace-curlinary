@@ -1,4 +1,3 @@
-import Meals from '@/components/client/shared/meals';
 import SearchForm from '@/components/shared/search-form';
 import { ChevronDown, MapPin } from 'lucide-react';
 import {
@@ -9,18 +8,31 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import MealsGridLayout from '@/components/client/shared/meals-grid-layout';
+import { getProducts } from '@/actions/product';
 
 interface Props {
-	searchParams: {
+	searchParams: Promise<{
 		search?: string;
-	};
-	params: {
+		take?: string;
+		skip?: string;
+		orderBy?: 'desc' | 'asc';
+	}>;
+	params: Promise<{
 		cat: string;
-	};
+	}>;
 }
 
-export default function Explore({ searchParams, params }: Props) {
-	const { cat } = params;
+export default async function Explore({ searchParams, params }: Props) {
+	const { cat } = await params;
+	const { search, take, skip, orderBy } = await searchParams;
+	const data = await getProducts({
+		take: 15,
+		skip: 0,
+		orderBy: {
+			createdAt: 'desc',
+		},
+	});
 	const borderImage = {
 		borderImage:
 			'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, .5), rgba(0, 0, 0, .7)) fill 1',
@@ -74,10 +86,10 @@ export default function Explore({ searchParams, params }: Props) {
 						</div>
 					</div>
 					<div className="pb-10">
-						<Meals />
+						<MealsGridLayout data={data} title="Trending meals" />
 					</div>
 				</div>
-				<SearchForm open={!!searchParams?.search} />
+				<SearchForm open={!!search} />
 			</div>
 		</>
 	);

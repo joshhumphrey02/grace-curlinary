@@ -7,6 +7,145 @@ generator client {
 datasource db {
   provider   = "postgresql"
   url        = env("POSTGRES_URL")
-  directUrl  = env("DIRECT_URL")
+  // directUrl  = env("DIRECT_URL")
   extensions = [postgis]
+}
+
+model Address {
+  id          String   @id @default(uuid())
+  street      String?
+  city        String?
+  state       String?
+  zipCode     String?
+  country     String   @default("Nigeria")
+  countryCode String   @default("NG")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // relations
+  userId String
+  user   User    @relation(fields: [userId], references: [id])
+  orders Order[]
+
+  @@index([userId])
+}
+
+model FileRocord {
+  id        String   @id @default(uuid())
+  uid       Int      @unique @default(autoincrement())
+  name      String
+  path      String   @unique
+  size      Int?
+  mimetype  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  width     Int?
+  height    Int?
+
+  deletedAt DateTime?
+
+  // relations
+  user      User[]
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String?
+
+  @@index([path])
+}
+
+model Notification {
+  id        String               @id @default(uuid())
+  uid       Int                  @unique @default(autoincrement())
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  ownerId   String
+  owner     User                 @relation("NotificationOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  isRead    Boolean              @default(false)
+  type      NotificationType
+  category  NotificationCategory
+}
+
+enum UserStatus {
+  ACTIVE
+  VERIFIED
+  DEACTIVATED
+  SUSPENDED
+  BANNED
+  DELETED
+}
+
+enum AdminRole {
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum ShippingMethod {
+  PICKUP
+  DELIVERY
+}
+
+enum NotificationCategory {
+  UPDATES
+  REQUESTS
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  SUCCESS
+  FAILED
+  CANCELED
+}
+
+enum WaybillStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+}
+
+enum NotificationType {
+  ORDER_CONFIRMATION
+  SHIPPING_UPDATE
+  DELIVERY_CONFIRMATION
+  PROMOTION
+  GENERAL
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  PAYPAL
+  BANK_TRANSFER
+  CASH_ON_DELIVERY
+}
+
+enum PaymentStatus {
+  OPEN
+  CLOSED
+}
+
+enum OrderStatus {
+  PENDING
+  SHIPPED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
+enum UserType {
+  USER
+  STAFF
+  ADMIN
+  OWNER
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum InventoryStatus {
+  IN_STOCK
+  OUT_OF_STOCK
+  UNAVAILABLE
 }

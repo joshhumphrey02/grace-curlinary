@@ -1,0 +1,110 @@
+model User {
+  id              String   @id @default(cuid())
+  uid             Int      @unique @default(autoincrement())
+  firstName       String?  @db.VarChar(100)
+  lastName        String?  @db.VarChar(100)
+  email           String   @unique
+  phoneNumber     String?
+  username        String?  @unique @db.VarChar(255)
+  password        String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userType        UserType @default(USER)
+  country         String?
+  isPhoneVerified Boolean  @default(false)
+  isEmailVerified Boolean  @default(false)
+
+  /// This is the user phone number parsed with international format
+  intlPhoneNumber String @unique @db.VarChar(20)
+  countryCode     String @default("NG") @db.VarChar(3)
+
+  // relations
+  notifications       Notification[]        @relation("NotificationOwner")
+  sessions            AuthSession[]
+  photoId             String?
+  photo               FileRocord?           @relation(fields: [photoId], references: [id])
+  passwordResetTokens PasswordResetTokens[]
+  verificationTokens  VerificationToken[]
+  address             Address[]
+  orders              Order[]
+  reviews             Review[]
+  cart                Cart?
+  viewed              Viewed[]
+  likes               Likes[]
+  bookings            Booking[]
+
+  deletedAt DateTime?
+  status    UserStatus @default(ACTIVE)
+
+  @@unique([countryCode, phoneNumber])
+  @@index([username, phoneNumber])
+}
+
+model Viewed {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  viewedAt  DateTime @default(now())
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  likedAt   DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  title     String
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+}
+
+model AdminAllowedEmail {
+  id           String    @id @default(cuid())
+  uid          Int       @unique @default(autoincrement())
+  email        String    @unique
+  verifiedAt   DateTime?
+  allowedPages String[]
+  createdAt    DateTime  @default(now())
+}
+
+model AuthSession {
+  id        String    @id @default(cuid())
+  userId    String
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  email     String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([email, token])
+}
+
+model PasswordResetTokens {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
