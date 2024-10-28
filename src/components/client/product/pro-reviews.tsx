@@ -1,7 +1,6 @@
 import { Progress } from '@/components/ui/progress';
 import { Rating } from '@/components/ui/rating';
 import { Separator } from '@/components/ui/separator';
-import { uniqueId } from '@/lib/utils';
 import { StarFilledIcon } from '@radix-ui/react-icons';
 import { ChevronRight, CircleCheckBig } from 'lucide-react';
 
@@ -70,10 +69,10 @@ export default function ProductReviews() {
 					</h3>
 					<div className=" flex flex-col gap-3">
 						{Array(3)
-							.fill('')
-							.map((i) => (
+							.fill('a')
+							.map((d, i) => (
 								<div
-									key={uniqueId()}
+									key={d + i}
 									className="flex flex-col gap-2 pb-2 border-b border-border">
 									<Rating value={4.6} />
 									<span className="text-sm font-bold">Good product</span>

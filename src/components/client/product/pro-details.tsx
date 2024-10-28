@@ -1,24 +1,35 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import { Rating } from '@/components/ui/rating';
 import { Separator } from '@/components/ui/separator';
 import { Heart, Minus, Plus } from 'lucide-react';
 import React from 'react';
-import { FaNairaSign } from 'react-icons/fa6';
 import AnimatedButton from '../shared/animated-button';
+import { ProductType } from '@/actions/product';
+import { Price } from '@/components/shared/price';
+import LikeButton from '../shared/like-button';
 
-export default function ProductDetails() {
+interface Props {
+	className?: string;
+	data: ProductType;
+}
+
+export default function ProductDetails({ data }: Props) {
+	if (!data) return null;
+	const { name, price, subCategory } = data;
 	const [qty, setQty] = React.useState(1);
 	return (
 		<div className="flex flex-col gap-6">
 			<div className="flex flex-col gap-3">
 				<div className="flex justify-between gap-4">
-					<h2 className="text-lg flex-1 sm:text-2xl font-extrabold font-roboto">
-						Crunchy Flavoured Chin Chin
-					</h2>
-					<span className="text-tertiary">
-						<Heart className="w-5 h-5" />
-					</span>
+					<div className=" flex flex-col gap-2">
+						<h2 className="text-lg flex-1 sm:text-2xl font-extrabold font-roboto">
+							{name}
+						</h2>
+						{subCategory && (
+							<span className="text-xs text-gray-500">{subCategory.name}</span>
+						)}
+					</div>
+					<LikeButton />
 				</div>
 				<div className="flex items-center gap-2">
 					<Rating value={4.5} />
@@ -28,11 +39,8 @@ export default function ProductDetails() {
 			<Separator />
 			<div className="py-2 grid grid-cols-2">
 				<div className="flex flex-col gap-1">
-					<div className=" font-mono text-xl items-center font-bold flex gap-1 ">
-						<FaNairaSign />
-						<span>1500</span>
-					</div>
-					<span className="text-xs font-bold">
+					<Price value={price} />
+					<span className="text-xs font-semibold">
 						Price per item <sup className="text-tertiary">*</sup>
 					</span>
 				</div>
@@ -52,7 +60,7 @@ export default function ProductDetails() {
 				</div>
 			</div>
 			<Separator className=" hidden sm:flex" />
-			<div className=" flex-col gap-10">
+			<div className=" flex flex-col gap-10">
 				<div className=" gap-4  hidden sm:flex">
 					<div className="bg-gray-300 text-black font-bold px-4 py-2 gap-4 rounded-[1.3rem] flex items-center">
 						<span

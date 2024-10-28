@@ -1,0 +1,49 @@
+model Product {
+  id            String              @id @default(cuid())
+  uid           Int                 @unique @default(autoincrement())
+  name          String
+  description   String
+  price         Float
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  category      ProductCategory     @relation(fields: [categoryId], references: [id], onUpdate: NoAction)
+  categoryId    String
+  subCategory   ProductSubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: NoAction)
+  subCategoryId String?
+  images        FileRocord[]
+  record        InventoryRecord?
+  reviews       Review[]
+  cart          CartItem[]
+  viewed        Viewed[]
+  likes         Likes[]
+  booking       BookedItem[]
+  order         OrderItem[]
+}
+
+model ProductCategory {
+  id            String               @id @default(cuid())
+  name          String               @unique
+  slug          String               @unique
+  description   String?
+  subCategories ProductSubCategory[]
+  products      Product[]
+}
+
+model ProductSubCategory {
+  id          String          @id @default(cuid())
+  name        String          @unique
+  slug        String          @unique
+  description String?
+  category    ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String
+  products    Product[]
+}
+
+model InventoryRecord {
+  id        String          @id @default(cuid())
+  stock     Int             @default(0)
+  status    InventoryStatus @default(IN_STOCK)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String          @unique
+  createdAt DateTime        @default(now())
+}

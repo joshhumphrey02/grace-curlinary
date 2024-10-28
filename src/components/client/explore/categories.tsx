@@ -1,4 +1,3 @@
-import { uniqueId } from '@/lib/utils';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 interface Props {
@@ -17,7 +16,7 @@ export default function ExploreCategories(props: Props) {
 			<div className="w-full py-6 flex sm:justify-center">
 				<div className="grid grid-cols-4 sm:flex flex-wrap gap-4 sm:gap-8">
 					{data.map((c, i) => (
-						<Link key={uniqueId()} href={`/p/${c.name}`}>
+						<Link key={c.name} href={`/p/${c.name}`}>
 							<Card className="p-1 flex flex-col items-center space-y-4 border-0 backdrop-blur-sm bg-white/30 dark:bg-transparent transition-all duration-1000 rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl">
 								<div className="w-full sm:w-40 h-16 sm:h-32 border-2 border-[#ebdbeb] rounded-full sm:rounded-2xl overflow-hidden">
 									<img

@@ -106,3 +106,13 @@ export function formatPhoneNumber(phoneNumber: string) {
 
 	return `${groupedFirstPart} ${secondPart}`;
 }
+
+export const createCategorySlug = (categoryName: string): string => {
+	return categoryName
+		.toLowerCase()
+		.trim()
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '')
+		.replace(/--+/g, '-')
+		.replace(/^-+|-+$/g, '');
+};
