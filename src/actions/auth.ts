@@ -16,15 +16,16 @@ import {
 	type AuthSignupFormInput,
 	resetPasswordSchema,
 	ResetPasswordInput,
-} from '@/lib/validators/auth';
+} from '@/lib/validators';
 
 import { validateRequest } from '@/lib/lucia/validate-request';
-import { Paths } from '../constants';
+import { ClientPaths } from '@/lib/constants';
 import { env } from '@/env';
 import { UserType } from '@prisma/client';
 import type { ActionResponse } from '@/types';
-import prisma from '../prisma';
-const superAdmins = env.WHITELISTED_EMAILS?.split(',') || [];
+import prisma from '@/lib/prisma';
+import { uniqueId } from '@/lib/utils';
+const superAdmins: any = [];
 
 export async function login(
 	_: any,
@@ -42,25 +43,25 @@ export async function login(
 	}
 
 	const { email, password } = parsed.data;
-	const isSuper = superAdmins.includes(email);
-	if (!isSuper) {
-		const allowedEmails = await prisma.adminAllowedEmail.findFirst({
-			where: {
-				email: {
-					equals: email,
-					mode: 'insensitive',
-				},
-			},
-			select: {
-				email: true,
-			},
-		});
-		if (!allowedEmails) {
-			return {
-				formError: 'Unauthorized email address',
-			};
-		}
-	}
+	// const isSuper = superAdmins.includes(email);
+	// if (!isSuper) {
+	// 	const allowedEmails = await prisma.adminAllowedEmail.findFirst({
+	// 		where: {
+	// 			email: {
+	// 				equals: email,
+	// 				mode: 'insensitive',
+	// 			},
+	// 		},
+	// 		select: {
+	// 			email: true,
+	// 		},
+	// 	});
+	// 	if (!allowedEmails) {
+	// 		return {
+	// 			formError: 'Unauthorized email address',
+	// 		};
+	// 	}
+	// }
 	const existingUser = await prisma.user.findFirst({
 		where: {
 			email: {
@@ -71,7 +72,6 @@ export async function login(
 		select: {
 			id: true,
 			password: true,
-			emailVerified: true,
 		},
 	});
 	if (!existingUser) {
@@ -98,12 +98,13 @@ export async function login(
 
 	const session = await lucia.createSession(existingUser.id, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
-	cookies().set(
+	const cookieStore = await cookies();
+	cookieStore.set(
 		sessionCookie.name,
 		sessionCookie.value,
 		sessionCookie.attributes
 	);
-	return redirect(Paths.Dashboard);
+	return redirect(ClientPaths.Home);
 }
 
 export async function signup(
@@ -126,22 +127,22 @@ export async function signup(
 
 	const { email, password, firstName, lastName, phone } = form;
 
-	const isSuper = superAdmins.includes(email);
-	if (!isSuper) {
-		const allowedEmails = await prisma.adminAllowedEmail.findFirst({
-			where: {
-				email,
-			},
-			select: {
-				email: true,
-			},
-		});
-		if (!allowedEmails) {
-			return {
-				formError: 'Unauthorized user',
-			};
-		}
-	}
+	// const isSuper = superAdmins.includes(email);
+	// if (!isSuper) {
+	// 	const allowedEmails = await prisma.adminAllowedEmail.findFirst({
+	// 		where: {
+	// 			email,
+	// 		},
+	// 		select: {
+	// 			email: true,
+	// 		},
+	// 	});
+	// 	if (!allowedEmails) {
+	// 		return {
+	// 			formError: 'Unauthorized user',
+	// 		};
+	// 	}
+	// }
 	const existingUser = await prisma.user.findFirst({
 		where: {
 			email: {
@@ -165,7 +166,7 @@ export async function signup(
 				userType: UserType.USER,
 				firstName,
 				lastName,
-				phone,
+				phoneNumber: phone,
 			},
 		});
 
@@ -174,12 +175,42 @@ export async function signup(
 	await lucia.invalidateUserSessions(user.id);
 	const session = await lucia.createSession(user.id, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
-	cookies().set(
+	const cookieStore = await cookies();
+	cookieStore.set(
 		sessionCookie.name,
 		sessionCookie.value,
 		sessionCookie.attributes
 	);
-	redirect(Paths.Dashboard);
+	redirect(ClientPaths.Profile);
+}
+
+export async function saveGuest() {
+	try {
+		const { session, user } = await validateRequest();
+		if (session?.userId || user?.id) return null;
+		const guest = await prisma.user.create({
+			data: {
+				email: uniqueId() + '@gmail.com',
+				password: '',
+				userType: UserType.GUEST,
+				firstName: 'Guest',
+				lastName: 'User',
+				phoneNumber: '',
+			},
+		});
+		await lucia.invalidateUserSessions(guest.id);
+		const newSession = await lucia.createSession(guest.id, {});
+		const sessionCookie = lucia.createSessionCookie(newSession.id);
+		const cookieStore = await cookies();
+		cookieStore.set(
+			sessionCookie.name,
+			sessionCookie.value,
+			sessionCookie.attributes
+		);
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
 }
 
 async function sendEmailVerificationCode(userId: string, email: string) {
@@ -187,8 +218,9 @@ async function sendEmailVerificationCode(userId: string, email: string) {
 
 	const session = await lucia.createSession(userId, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
-	cookies().set(sessionCookie.name, sessionCookie.value);
-	return redirect(Paths.VerifyEmail);
+	const cookieStore = await cookies();
+	cookieStore.set(sessionCookie.name, sessionCookie.value);
+	return redirect(ClientPaths.VerifyEmail);
 }
 
 export async function logout(): Promise<{ error: string } | void> {
@@ -200,7 +232,8 @@ export async function logout(): Promise<{ error: string } | void> {
 	}
 	await lucia.invalidateSession(session.id);
 	const sessionCookie = lucia.createBlankSessionCookie();
-	cookies().set(
+	const cookieStore = await cookies();
+	cookieStore.set(
 		sessionCookie.name,
 		sessionCookie.value,
 		sessionCookie.attributes
@@ -214,7 +247,7 @@ export async function resendVerificationEmail(): Promise<{
 }> {
 	const { user } = await validateRequest();
 	if (!user) {
-		return redirect(Paths.Login);
+		return redirect(ClientPaths.Login);
 	}
 
 	const lastSent = await prisma.verificationToken.findFirst({
@@ -231,10 +264,10 @@ export async function resendVerificationEmail(): Promise<{
 			error: `Please wait ${timeFromNow(lastSent.expiresAt)} before resending`,
 		};
 	}
-	const verificationCode = await generateEmailVerificationCode(
-		user.id,
-		user.email
-	);
+	// const verificationCode = await generateEmailVerificationCode(
+	// 	user.id,
+	// 	user?.email
+	// );
 
 	return { success: true };
 }
@@ -248,7 +281,7 @@ export async function verifyEmail(
 	}
 	const { session: userSession, user } = await validateRequest();
 	if (!userSession) {
-		return redirect(Paths.Login);
+		return redirect(ClientPaths.Login);
 	}
 
 	const dbCode = await prisma.$transaction(async (tx) => {
@@ -279,18 +312,19 @@ export async function verifyEmail(
 			id: user.id,
 		},
 		data: {
-			emailVerified: new Date(),
+			isEmailVerified: true,
 		},
 	});
 	await lucia.invalidateUserSessions(user.id);
 	const session = await lucia.createSession(user.id, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
-	cookies().set(
+	const cookieStore = await cookies();
+	cookieStore.set(
 		sessionCookie.name,
 		sessionCookie.value,
 		sessionCookie.attributes
 	);
-	redirect(Paths.Dashboard);
+	redirect(ClientPaths.Home);
 }
 
 export async function sendPasswordResetLink(
@@ -311,8 +345,7 @@ export async function sendPasswordResetLink(
 			},
 		});
 
-		if (!user || !user.emailVerified)
-			return { error: 'Provided email is invalid.' };
+		if (!user) return { error: 'Provided email is invalid.' };
 
 		const verificationToken = await generatePasswordResetToken(user.id);
 
@@ -373,12 +406,13 @@ export async function resetPassword(
 
 	const session = await lucia.createSession(user.id, {});
 	const sessionCookie = lucia.createSessionCookie(session.id);
-	cookies().set(
+	const cookieStore = await cookies();
+	cookieStore.set(
 		sessionCookie.name,
 		sessionCookie.value,
 		sessionCookie.attributes
 	);
-	redirect(Paths.Dashboard);
+	redirect(ClientPaths.Home);
 }
 
 const timeFromNow = (time: Date) => {

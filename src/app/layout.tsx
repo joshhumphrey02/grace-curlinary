@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import { Roboto, Poppins } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider';
+import { saveGuest } from '@/actions/auth';
 
 const geistSans = localFont({
 	src: '../assets/fonts/GeistVF.woff',
@@ -32,15 +33,16 @@ export const metadata: Metadata = {
 	description: 'A pastry ecommerce webiste to satisy your taste budz',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	await saveGuest();
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body
-				className={`${geistSans.variable} ${poppins.variable} ${geistMono.variable} ${roboto.className} antialiased max-w-[1350px] font-sans mx-auto`}>
+				className={`${geistSans.variable} ${poppins.variable} ${geistMono.variable} ${roboto.variable} antialiased max-w-[1350px] font-sans mx-auto`}>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"

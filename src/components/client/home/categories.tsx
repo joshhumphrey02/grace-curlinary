@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
+import { uniqueId } from '@/lib/utils';
 interface Props {
 	children?: string;
 	data: {
@@ -24,7 +25,7 @@ export default function Categories(props: Props) {
 				</div>
 				<div className="hidden sm:grid grid-cols-4 gap-4">
 					{data.map((c, i) => (
-						<Link key={c.link} href={`/p/${c.name}`}>
+						<Link key={uniqueId()} href={`/p/${c.name}`}>
 							<Card className="p-1 space-y-4 outline-tertiary transition-all duration-1000 hover:outline rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl">
 								<div className="w-full h-16 sm:h-40 rounded-xl overflow-hidden">
 									<img
@@ -44,7 +45,7 @@ export default function Categories(props: Props) {
 				</div>
 				<div className="flex max-w-[22rem] py-1 sm:hidden whitespace-nowrap space-x-4 overflow-x-auto w-full scroll-smooth">
 					{[...data, ...data].map((c, i) => (
-						<Link key={c.img} href={`/p/${c.name.toLowerCase()}`}>
+						<Link key={uniqueId()} href={`/p/${c.name.toLowerCase()}`}>
 							<Card className="px-4 py-2 w-fit h-16 flex rounded-xl shadow-md items-center gap-4">
 								<div className="w-12 h-10 rounded-xl overflow-hidden">
 									<img

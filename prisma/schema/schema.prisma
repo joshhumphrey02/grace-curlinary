@@ -132,6 +132,7 @@ enum OrderStatus {
 }
 
 enum UserType {
+  GUEST
   USER
   STAFF
   ADMIN

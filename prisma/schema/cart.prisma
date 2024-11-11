@@ -12,4 +12,5 @@ model CartItem {
   product   Product @relation(fields: [productId], references: [id], onDelete: NoAction)
   productId String
   quantity  Int
+  checked   Boolean @default(false)
 }

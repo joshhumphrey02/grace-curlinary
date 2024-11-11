@@ -9,14 +9,14 @@ model User {
   password        String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  userType        UserType @default(USER)
+  userType        UserType @default(GUEST)
   country         String?
   isPhoneVerified Boolean  @default(false)
   isEmailVerified Boolean  @default(false)
 
   /// This is the user phone number parsed with international format
-  intlPhoneNumber String @unique @db.VarChar(20)
-  countryCode     String @default("NG") @db.VarChar(3)
+  intlPhoneNumber String? @unique @db.VarChar(20)
+  countryCode     String? @default("NG") @db.VarChar(3)
 
   // relations
   notifications       Notification[]        @relation("NotificationOwner")
@@ -36,7 +36,6 @@ model User {
   deletedAt DateTime?
   status    UserStatus @default(ACTIVE)
 
-  @@unique([countryCode, phoneNumber])
   @@index([username, phoneNumber])
 }
 

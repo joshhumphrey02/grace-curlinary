@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 // import { ProductFormInput, ProductFormSchema } from '../validators/auth';
 import prisma from '@/lib/prisma';
 import { ActionResponse } from '@/types';
+import { validateRequest } from '@/lib/lucia/validate-request';
 
 export async function getProducts(args: {
 	cursor?: string;
@@ -14,6 +15,7 @@ export async function getProducts(args: {
 	};
 }) {
 	try {
+		const { user } = await validateRequest();
 		const { take, skip, orderBy } = args;
 		const products = await prisma.product.findMany({
 			...(args.cursor && { cursor: { id: args.cursor } }),
@@ -27,8 +29,11 @@ export async function getProducts(args: {
 					},
 				},
 				likes: {
+					where: {
+						userId: user?.id,
+					},
 					select: {
-						userId: true,
+						id: true,
 					},
 					take: 1,
 				},

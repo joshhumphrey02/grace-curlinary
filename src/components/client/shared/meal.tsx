@@ -31,6 +31,7 @@ export default function Meal(props: Props) {
 							height={image.height!}
 							className="w-full h-full object-cover"
 							alt={image.name}
+							loading="lazy"
 						/>
 					</div>
 					<div className="px-1 pb-2 space-y-2">
@@ -47,7 +48,7 @@ export default function Meal(props: Props) {
 							<span className="flex text-base sm:text-xl font-mono font-extrabold items-center">
 								<Price value={data.price} />
 							</span>
-							<LikeButton isLiked={false} />
+							<LikeButton data={data} />
 						</div>
 					</div>
 				</Card>
